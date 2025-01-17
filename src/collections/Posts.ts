@@ -21,18 +21,25 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
-      name: 'content',
-      type: 'text',
-      required: true,
-    },
-    {
       name: 'slug',
       type: 'text',
       required: true,
     },
     {
       name: 'categories',
-      type: 'text',
+      type: 'select',
+      required: false,
+      index: true,
+      hasMany: true,
+      options: [
+        { label: 'Politics', value: 'politics' },
+        { label: 'G20', value: 'G20' },
+        { label: 'Blog', value: 'blog' },
+      ],
+    },
+    {
+      name: 'content',
+      type: 'textarea',
       required: true,
     },
   ],
