@@ -24,10 +24,6 @@ export default buildConfig({
   collections: [Users, Media, Posts],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
-  localization: {
-    locales: ['en', 'de'], // required
-    defaultLocale: 'de', // required
-  },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
