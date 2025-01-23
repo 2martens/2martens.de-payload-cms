@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     posts: Post;
+    'header-cards': HeaderCard;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -23,6 +24,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    'header-cards': HeaderCardsSelect<false> | HeaderCardsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -110,6 +112,22 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header-cards".
+ */
+export interface HeaderCard {
+  id: string;
+  name: string;
+  /**
+   * Use FontAwesome icon name (e.g., "phone", "life-ring")
+   */
+  icon: string;
+  description: string;
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -126,6 +144,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'header-cards';
+        value: string | HeaderCard;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -211,6 +233,18 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   categories?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header-cards_select".
+ */
+export interface HeaderCardsSelect<T extends boolean = true> {
+  name?: T;
+  icon?: T;
+  description?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }
