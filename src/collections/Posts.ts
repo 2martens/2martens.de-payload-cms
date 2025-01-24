@@ -38,8 +38,13 @@ export const Posts: CollectionConfig = {
       ],
     },
     {
-      name: 'content',
+      name: 'description',
       type: 'textarea',
+      required: true,
+    },
+    {
+      name: 'content',
+      type: 'richText',
       required: true,
     },
   ],
