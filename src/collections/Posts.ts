@@ -27,19 +27,26 @@ export const Posts: CollectionConfig = {
     },
     {
       name: 'category',
-      type: 'select',
+      type: 'relationship',
+      relationTo: 'categories',
       required: false,
       index: true,
-      hasMany: false,
-      options: [
-        { label: 'Politics', value: 'politics' },
-        { label: 'G20', value: 'G20' },
-        { label: 'Blog', value: 'blog' },
-      ],
+    },
+    {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'authors',
+      required: false,
+      index: true,
     },
     {
       name: 'description',
       type: 'textarea',
+      required: true,
+    },
+    {
+      name: 'publishedAt',
+      type: 'date',
       required: true,
     },
     {

@@ -18,6 +18,8 @@ export interface Config {
     'header-menu-items': HeaderMenuItem;
     'footer-menu-items': FooterMenuItem;
     'footer-social-media-icons': FooterSocialMediaIcon;
+    categories: Category;
+    authors: Author;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -31,6 +33,8 @@ export interface Config {
     'header-menu-items': HeaderMenuItemsSelect<false> | HeaderMenuItemsSelect<true>;
     'footer-menu-items': FooterMenuItemsSelect<false> | FooterMenuItemsSelect<true>;
     'footer-social-media-icons': FooterSocialMediaIconsSelect<false> | FooterSocialMediaIconsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -111,8 +115,10 @@ export interface Post {
   id: string;
   title: string;
   slug: string;
-  category?: ('politics' | 'G20' | 'blog') | null;
+  category?: (string | null) | Category;
+  author?: (string | null) | Author;
   description: string;
+  publishedAt: string;
   content: {
     root: {
       type: string;
@@ -128,6 +134,38 @@ export interface Post {
     };
     [k: string]: unknown;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title: string;
+  slug: string;
+  /**
+   * Only add the path component, starting with the root slash (/)
+   */
+  href: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: string;
+  name: string;
+  slug: string;
+  /**
+   * Only add the path component, starting with the root slash (/)
+   */
+  href: string;
+  role: string;
+  imageUrl?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -227,6 +265,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'footer-social-media-icons';
         value: string | FooterSocialMediaIcon;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: string | Author;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -311,7 +357,9 @@ export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   category?: T;
+  author?: T;
   description?: T;
+  publishedAt?: T;
   content?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -359,6 +407,30 @@ export interface FooterSocialMediaIconsSelect<T extends boolean = true> {
   icon?: T;
   link?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  href?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  href?: T;
+  role?: T;
+  imageUrl?: T;
   updatedAt?: T;
   createdAt?: T;
 }
