@@ -169,9 +169,10 @@ export interface FooterSocialMediaIcon {
   id: string;
   name: string;
   /**
-   * Use FontAwesome icon name (e.g., "phone", "life-ring")
+   * Use FontAwesome icon name (e.g., "phone", "life-ring"). Only brand icons are supported.
    */
   icon: string;
+  link: string;
   order: number;
   updatedAt: string;
   createdAt: string;
@@ -326,6 +327,7 @@ export interface HeaderMenuItemsSelect<T extends boolean = true> {
 export interface FooterSocialMediaIconsSelect<T extends boolean = true> {
   name?: T;
   icon?: T;
+  link?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;

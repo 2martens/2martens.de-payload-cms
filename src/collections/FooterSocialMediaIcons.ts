@@ -32,8 +32,13 @@ export const FooterSocialMediaIcons: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: 'Use FontAwesome icon name (e.g., "phone", "life-ring")',
+        description: 'Use FontAwesome icon name (e.g., "phone", "life-ring"). Only brand icons are supported.',
       },
+    },
+    {
+      name: 'link',
+      type: 'text',
+      required: true,
     },
     {
       name: 'order',
