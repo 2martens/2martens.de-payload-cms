@@ -13,6 +13,7 @@ import { Posts } from './collections/Posts'
 import { HeaderCards } from './collections/HeaderCards'
 import { HeaderMenuItems } from './collections/HeaderMenuItems'
 import { FooterSocialMediaIcons } from './collections/FooterSocialMediaIcons'
+import { FooterMenuItems } from './collections/FooterMenuItems'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, HeaderCards, HeaderMenuItems, FooterSocialMediaIcons],
+  collections: [Users, Media, Posts, HeaderCards, HeaderMenuItems, FooterMenuItems, FooterSocialMediaIcons],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

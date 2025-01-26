@@ -16,6 +16,7 @@ export interface Config {
     posts: Post;
     'header-cards': HeaderCard;
     'header-menu-items': HeaderMenuItem;
+    'footer-menu-items': FooterMenuItem;
     'footer-social-media-icons': FooterSocialMediaIcon;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -28,6 +29,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     'header-cards': HeaderCardsSelect<false> | HeaderCardsSelect<true>;
     'header-menu-items': HeaderMenuItemsSelect<false> | HeaderMenuItemsSelect<true>;
+    'footer-menu-items': FooterMenuItemsSelect<false> | FooterMenuItemsSelect<true>;
     'footer-social-media-icons': FooterSocialMediaIconsSelect<false> | FooterSocialMediaIconsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -156,7 +158,21 @@ export interface HeaderMenuItem {
    * Only add the path component, starting with the root slash (/)
    */
   link: string;
-  description: string;
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer-menu-items".
+ */
+export interface FooterMenuItem {
+  id: string;
+  name: string;
+  /**
+   * Only add the path component, starting with the root slash (/)
+   */
+  link: string;
   order: number;
   updatedAt: string;
   createdAt: string;
@@ -203,6 +219,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'header-menu-items';
         value: string | HeaderMenuItem;
+      } | null)
+    | ({
+        relationTo: 'footer-menu-items';
+        value: string | FooterMenuItem;
       } | null)
     | ({
         relationTo: 'footer-social-media-icons';
@@ -315,7 +335,17 @@ export interface HeaderCardsSelect<T extends boolean = true> {
 export interface HeaderMenuItemsSelect<T extends boolean = true> {
   name?: T;
   link?: T;
-  description?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer-menu-items_select".
+ */
+export interface FooterMenuItemsSelect<T extends boolean = true> {
+  name?: T;
+  link?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;
