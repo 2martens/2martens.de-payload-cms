@@ -2,10 +2,10 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../access/authenticated'
 import { anyone } from '@/access/anyone'
 
-export const HeaderCards: CollectionConfig = {
-  slug: 'header-cards',
+export const HeaderMenuItems: CollectionConfig = {
+  slug: 'header-menu-items',
   admin: {
-    defaultColumns: ['name', 'icon', 'description'],
+    defaultColumns: ['name', 'description'],
     useAsTitle: 'name',
     group: 'Navigation',
     components: {
@@ -28,11 +28,11 @@ export const HeaderCards: CollectionConfig = {
       required: true,
     },
     {
-      name: 'icon',
+      name: 'link',
       type: 'text',
       required: true,
       admin: {
-        description: 'Use FontAwesome icon name (e.g., "phone", "life-ring")',
+        description: 'Only add the path component, starting with the root slash (/)',
       },
     },
     {

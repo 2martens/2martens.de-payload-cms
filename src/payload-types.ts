@@ -15,6 +15,7 @@ export interface Config {
     media: Media;
     posts: Post;
     'header-cards': HeaderCard;
+    'header-menu-items': HeaderMenuItem;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -25,6 +26,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     'header-cards': HeaderCardsSelect<false> | HeaderCardsSelect<true>;
+    'header-menu-items': HeaderMenuItemsSelect<false> | HeaderMenuItemsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -143,6 +145,22 @@ export interface HeaderCard {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header-menu-items".
+ */
+export interface HeaderMenuItem {
+  id: string;
+  name: string;
+  /**
+   * Only add the path component, starting with the root slash (/)
+   */
+  link: string;
+  description: string;
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -163,6 +181,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'header-cards';
         value: string | HeaderCard;
+      } | null)
+    | ({
+        relationTo: 'header-menu-items';
+        value: string | HeaderMenuItem;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -259,6 +281,18 @@ export interface PostsSelect<T extends boolean = true> {
 export interface HeaderCardsSelect<T extends boolean = true> {
   name?: T;
   icon?: T;
+  description?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header-menu-items_select".
+ */
+export interface HeaderMenuItemsSelect<T extends boolean = true> {
+  name?: T;
+  link?: T;
   description?: T;
   order?: T;
   updatedAt?: T;
