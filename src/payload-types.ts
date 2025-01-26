@@ -16,6 +16,7 @@ export interface Config {
     posts: Post;
     'header-cards': HeaderCard;
     'header-menu-items': HeaderMenuItem;
+    'footer-social-media-icons': FooterSocialMediaIcon;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -27,6 +28,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     'header-cards': HeaderCardsSelect<false> | HeaderCardsSelect<true>;
     'header-menu-items': HeaderMenuItemsSelect<false> | HeaderMenuItemsSelect<true>;
+    'footer-social-media-icons': FooterSocialMediaIconsSelect<false> | FooterSocialMediaIconsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -161,6 +163,21 @@ export interface HeaderMenuItem {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer-social-media-icons".
+ */
+export interface FooterSocialMediaIcon {
+  id: string;
+  name: string;
+  /**
+   * Use FontAwesome icon name (e.g., "phone", "life-ring")
+   */
+  icon: string;
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -185,6 +202,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'header-menu-items';
         value: string | HeaderMenuItem;
+      } | null)
+    | ({
+        relationTo: 'footer-social-media-icons';
+        value: string | FooterSocialMediaIcon;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -294,6 +315,17 @@ export interface HeaderMenuItemsSelect<T extends boolean = true> {
   name?: T;
   link?: T;
   description?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer-social-media-icons_select".
+ */
+export interface FooterSocialMediaIconsSelect<T extends boolean = true> {
+  name?: T;
+  icon?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;
