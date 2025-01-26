@@ -26,11 +26,11 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
-      name: 'categories',
+      name: 'category',
       type: 'select',
       required: false,
       index: true,
-      hasMany: true,
+      hasMany: false,
       options: [
         { label: 'Politics', value: 'politics' },
         { label: 'G20', value: 'G20' },

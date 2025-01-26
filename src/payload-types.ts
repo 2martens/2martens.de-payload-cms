@@ -105,7 +105,7 @@ export interface Post {
   id: string;
   title: string;
   slug: string;
-  categories?: ('politics' | 'G20' | 'blog')[] | null;
+  category?: ('politics' | 'G20' | 'blog') | null;
   description: string;
   content: {
     root: {
@@ -246,7 +246,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  categories?: T;
+  category?: T;
   description?: T;
   content?: T;
   updatedAt?: T;
