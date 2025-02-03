@@ -165,7 +165,7 @@ export interface Author {
    */
   href: string;
   role: string;
-  imageUrl?: string | null;
+  image?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -430,7 +430,7 @@ export interface AuthorsSelect<T extends boolean = true> {
   slug?: T;
   href?: T;
   role?: T;
-  imageUrl?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }

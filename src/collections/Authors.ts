@@ -40,10 +40,11 @@ export const Authors: CollectionConfig = {
       label: 'Role of the author',
     },
     {
-      name: 'imageUrl',
-      type: 'text',
+      name: 'image',
+      type: 'relationship',
+      relationTo: 'media',
       required: false,
-      label: 'Image URL of the author',
+      label: 'Image of the author',
     },
   ],
 }
