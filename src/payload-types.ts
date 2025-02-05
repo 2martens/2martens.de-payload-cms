@@ -20,6 +20,7 @@ export interface Config {
     'footer-social-media-icons': FooterSocialMediaIcon;
     categories: Category;
     authors: Author;
+    speeches: Speech;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -35,6 +36,7 @@ export interface Config {
     'footer-social-media-icons': FooterSocialMediaIconsSelect<false> | FooterSocialMediaIconsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
+    speeches: SpeechesSelect<false> | SpeechesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -233,6 +235,35 @@ export interface FooterSocialMediaIcon {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "speeches".
+ */
+export interface Speech {
+  id: string;
+  title: string;
+  slug: string;
+  author?: (string | null) | Author;
+  description: string;
+  publishedAt: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -273,6 +304,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'authors';
         value: string | Author;
+      } | null)
+    | ({
+        relationTo: 'speeches';
+        value: string | Speech;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -431,6 +466,20 @@ export interface AuthorsSelect<T extends boolean = true> {
   href?: T;
   role?: T;
   image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "speeches_select".
+ */
+export interface SpeechesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  author?: T;
+  description?: T;
+  publishedAt?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
 }

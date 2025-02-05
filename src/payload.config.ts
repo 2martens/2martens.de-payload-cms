@@ -16,6 +16,7 @@ import { FooterSocialMediaIcons } from './collections/FooterSocialMediaIcons'
 import { FooterMenuItems } from './collections/FooterMenuItems'
 import { Categories } from './collections/Categories'
 import { Authors } from './collections/Authors'
+import { Speeches } from './collections/Speeches'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +28,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, HeaderCards, HeaderMenuItems, FooterMenuItems, FooterSocialMediaIcons, Categories, Authors],
+  collections: [Users, Media, Posts, HeaderCards, HeaderMenuItems, FooterMenuItems, FooterSocialMediaIcons, Categories, Authors, Speeches],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
