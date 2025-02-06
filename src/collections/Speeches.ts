@@ -1,6 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { authenticated } from '../access/authenticated'
-import { anyone } from '@/access/anyone'
 
 export const Speeches: CollectionConfig = {
   slug: 'speeches',
@@ -8,13 +6,6 @@ export const Speeches: CollectionConfig = {
     useAsTitle: 'title',
     group: 'Content',
   },
-  access: {
-    create: authenticated,
-    delete: authenticated,
-    read: anyone,
-    update: authenticated,
-  },
-
   fields: [
     {
       name: 'title',

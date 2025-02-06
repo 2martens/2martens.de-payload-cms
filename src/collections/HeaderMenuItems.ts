@@ -1,6 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { authenticated } from '../access/authenticated'
-import { anyone } from '@/access/anyone'
 
 export const HeaderMenuItems: CollectionConfig = {
   slug: 'header-menu-items',
@@ -14,12 +12,6 @@ export const HeaderMenuItems: CollectionConfig = {
       // AfterList: [],
     },
     listSearchableFields: ['name'],
-  },
-  access: {
-    create: authenticated,
-    read: anyone,
-    update: authenticated,
-    delete: authenticated,
   },
   fields: [
     {

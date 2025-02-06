@@ -1,6 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { authenticated } from '../access/authenticated'
-import { anyone } from '@/access/anyone'
 
 export const HeaderCards: CollectionConfig = {
   slug: 'header-cards',
@@ -14,12 +12,6 @@ export const HeaderCards: CollectionConfig = {
       // AfterList: [],
     },
     listSearchableFields: ['name', 'description'],
-  },
-  access: {
-    create: authenticated,
-    read: anyone,
-    update: authenticated,
-    delete: authenticated,
   },
   fields: [
     {
