@@ -28,6 +28,7 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    dateFormat: 'yyyy-MM-dd',
   },
   csrf: [
     'https://cms.2martens.de',
