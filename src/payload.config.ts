@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Users } from './collections/Users'
+import { Clients } from './collections/Clients'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { HeaderCards } from './collections/HeaderCards'
@@ -28,7 +29,11 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, HeaderCards, HeaderMenuItems, FooterMenuItems, FooterSocialMediaIcons, Categories, Authors, Speeches],
+  csrf: [
+    'https://cms.2martens.de',
+    'http://localhost:3000',
+  ],
+  collections: [Users, Clients, Media, Posts, HeaderCards, HeaderMenuItems, FooterMenuItems, FooterSocialMediaIcons, Categories, Authors, Speeches],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
