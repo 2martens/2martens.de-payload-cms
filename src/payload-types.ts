@@ -117,6 +117,7 @@ export interface Post {
   id: string;
   title: string;
   slug: string;
+  visible: boolean;
   category?: (string | null) | Category;
   author?: (string | null) | Author;
   description: string;
@@ -391,6 +392,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  visible?: T;
   category?: T;
   author?: T;
   description?: T;

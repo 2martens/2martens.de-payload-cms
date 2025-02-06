@@ -27,6 +27,11 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
+      name: 'visible',
+      type: 'checkbox',
+      required: true,
+    },
+    {
       name: 'category',
       type: 'relationship',
       relationTo: 'categories',
