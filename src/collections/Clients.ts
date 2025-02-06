@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { env } from 'node:process';
 
 export const Clients: CollectionConfig = {
   slug: 'clients',
