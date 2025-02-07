@@ -71,7 +71,7 @@ jobs:
         with:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
             ARGS: "-rvz -i --delete"
-            SOURCE: ".next package.json package-lock.json next.config.mjs"
+            SOURCE: ".next package.json package-lock.json next.config.mjs .env"
             REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
             REMOTE_USER: ${{ secrets.REMOTE_USER }}
             TARGET: ~/payload-new/
