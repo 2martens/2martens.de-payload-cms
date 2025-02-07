@@ -1,6 +1,9 @@
-# blank
+# Payload CMS
 
-blank
+Repo for my Payload CMS.
+
+## Version Updates
+* do NOT update sharp, this causes segmentation fault
 
 ## Attributes
 
