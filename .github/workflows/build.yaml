@@ -80,7 +80,7 @@ jobs:
             REMOTE_USER: ${{ secrets.REMOTE_USER }}
             TARGET: ~/payload-new
             EXCLUDE: "/dist/, /node_modules/"
-      - name: Update payload on Uberspace
+      - name: Update CMS on Uberspace
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.REMOTE_HOST }}
