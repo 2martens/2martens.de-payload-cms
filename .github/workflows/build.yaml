@@ -75,5 +75,5 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
-          script_path: /home/${{ secrets.REMOTE_USER }}/bin/updatePayload.sh
+          script: updatePayload.sh
         
