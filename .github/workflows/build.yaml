@@ -44,6 +44,12 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Create env file
+        run: |
+          touch .env
+          echo "DATABASE_URI=${{ secrets.DATABASE_URI }}\n" >> .env
+          echo "PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}\n" >> .env
+          echo "PAYLOAD_PUBLIC_IS_DEVELOPMENT=false\n" >> .env
       - name: Load cache
         uses: actions/cache@v4
         with:
