@@ -71,21 +71,21 @@ jobs:
         with:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
             ARGS: "-rvz -i --delete"
-            SOURCE: ".next/standalone/"
+            SOURCE: ".next package.json package-lock.json next.config.mjs .env"
             REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
             REMOTE_USER: ${{ secrets.REMOTE_USER }}
-            TARGET: ~/payload-new
+            TARGET: ~/payload-new/
             EXCLUDE: "/dist/, /node_modules/"
-      - name: Push static to Uberspace
-        uses: easingthemes/ssh-deploy@main
-        with:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            ARGS: "-rvz -i"
-            SOURCE: ".next/static"
-            REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-            REMOTE_USER: ${{ secrets.REMOTE_USER }}
-            TARGET: ~/payload-new
-            EXCLUDE: "/dist/, /node_modules/"
+      # - name: Push static to Uberspace
+      #   uses: easingthemes/ssh-deploy@main
+      #   with:
+      #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #       ARGS: "-rvz -i"
+      #       SOURCE: ".next/static"
+      #       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+      #       REMOTE_USER: ${{ secrets.REMOTE_USER }}
+      #       TARGET: ~/payload-new
+      #       EXCLUDE: "/dist/, /node_modules/"
       - name: Update CMS on Uberspace
         uses: appleboy/ssh-action@v1.2.0
         with:
