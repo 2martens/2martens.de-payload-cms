@@ -23,15 +23,15 @@
     "graphql": "^16.10.0",
     "next": "^15.1.6",
     "payload": "^3.22.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "sharp": "^0.33.5"
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "sharp": "0.32.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@types/node": "^22.5.4",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3",
     "eslint": "^9.19.0",
     "eslint-config-next": "^15.1.6",
     "prettier": "^3.4.2",
@@ -41,9 +41,9 @@
     "node": "^18.20.2 || >=20.9.0"
   },
   "overrides": {
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   }
 }
