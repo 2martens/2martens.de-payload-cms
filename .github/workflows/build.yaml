@@ -38,7 +38,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
           cache-dependency-path: ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
       - name: Install dependencies
@@ -50,6 +50,7 @@ jobs:
           echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> .env
           echo "PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}" >> .env
           echo "PAYLOAD_PUBLIC_IS_DEVELOPMENT=false" >> .env
+          echo "SERVER_URL=https://cms.2martens.de" >> .env
       - name: Load cache
         uses: actions/cache@v4
         with:

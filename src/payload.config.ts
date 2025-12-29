@@ -32,8 +32,7 @@ export default buildConfig({
     dateFormat: 'yyyy-MM-dd',
   },
   csrf: [
-    'https://cms.2martens.de',
-    'http://localhost:3000',
+    process.env.SERVER_URL || 'http://localhost:3000',
   ],
   collections: [Users, Clients, Media, Posts, HeaderCards, HeaderMenuItems, FooterMenuItems, FooterSocialMediaIcons, Categories, Authors, Speeches],
   editor: lexicalEditor(),
