@@ -44,13 +44,6 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Create env file
-        run: |
-          touch .env
-          echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> .env
-          echo "PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}" >> .env
-          echo "PAYLOAD_PUBLIC_IS_DEVELOPMENT=false" >> .env
-          echo "SERVER_URL=${{ secrets.SERVER_URL }}" >> .env
       - name: Load cache
         uses: actions/cache@v4
         with:
@@ -67,20 +60,38 @@ jobs:
         run: |
           ${{ steps.detect-package-manager.outputs.manager }} run build
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Upload payload files
+        uses: actions/upload-artifact@v3
+        with:
+          name: payload-build
+          path: .next
+  deploy2martens:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: cms.2martens.de
+    steps:
+      - name: Download payload build
+        uses: actions/download-artifact@v3
+        with:
+          name: payload-build
+          path: .next
+      - name: Create env file
+        run: |
+          touch .env
+          echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> .env
+          echo "PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}" >> .env
+          echo "PAYLOAD_PUBLIC_IS_DEVELOPMENT=false" >> .env
+          echo "SERVER_URL=${{ secrets.SERVER_URL }}" >> .env
       - name: Push code to Uberspace
         uses: easingthemes/ssh-deploy@main
         with:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            ARGS: "-rvz -i --delete"
-            SOURCE: ".next package.json package-lock.json next.config.mjs .env"
-            REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-            REMOTE_USER: ${{ secrets.REMOTE_USER }}
-            TARGET: ~/payload-new/
-            EXCLUDE: "/dist/, /node_modules/"
-  run:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rvz -i --delete"
+          SOURCE: ".next package.json package-lock.json next.config.mjs .env"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ~/payload-new/
+          EXCLUDE: "/dist/, /node_modules/"
       - name: Update CMS on Uberspace
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -89,4 +100,38 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: ~/bin/updatePayload.sh
-        
+  deployProject2026:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: cms.bawü.app
+    steps:
+      - name: Download payload build
+        uses: actions/download-artifact@v3
+        with:
+          name: payload-build
+          path: .next
+      - name: Create env file
+        run: |
+          touch .env
+          echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> .env
+          echo "PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}" >> .env
+          echo "PAYLOAD_PUBLIC_IS_DEVELOPMENT=false" >> .env
+          echo "SERVER_URL=${{ secrets.SERVER_URL }}" >> .env
+      - name: Push code to Uberspace
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rvz -i --delete"
+          SOURCE: ".next package.json package-lock.json next.config.mjs .env"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ~/payload-new/
+          EXCLUDE: "/dist/, /node_modules/"
+      - name: Update CMS on Uberspace
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: ~/bin/updatePayload.sh
