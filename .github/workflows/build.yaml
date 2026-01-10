@@ -87,6 +87,6 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
+          port: ${{ secrets.SSH_PORT }}
           script: ~/bin/updatePayload.sh
         
