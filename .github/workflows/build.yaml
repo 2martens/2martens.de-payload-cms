@@ -61,10 +61,10 @@ jobs:
           ${{ steps.detect-package-manager.outputs.manager }} run build
         working-directory: ${{ env.BUILD_PATH }}
       - name: Upload payload files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: payload-build
-          path: .next
+          path: .next/
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -76,10 +76,10 @@ jobs:
     environment: ${{ matrix.environment }}
     steps:
       - name: Download payload build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: payload-build
-          path: .next
+          path: .next/
       - name: Create env file
         run: |
           touch .env
