@@ -65,45 +65,15 @@ jobs:
         with:
           name: payload-build
           path: .next
-  deploy2martens:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: cms.2martens.de
-    steps:
-      - name: Download payload build
-        uses: actions/download-artifact@v3
-        with:
-          name: payload-build
-          path: .next
-      - name: Create env file
-        run: |
-          touch .env
-          echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> .env
-          echo "PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}" >> .env
-          echo "PAYLOAD_PUBLIC_IS_DEVELOPMENT=false" >> .env
-          echo "SERVER_URL=${{ secrets.SERVER_URL }}" >> .env
-      - name: Push code to Uberspace
-        uses: easingthemes/ssh-deploy@main
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "-rvz -i --delete"
-          SOURCE: ".next package.json package-lock.json next.config.mjs .env"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ~/payload-new/
-          EXCLUDE: "/dist/, /node_modules/"
-      - name: Update CMS on Uberspace
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: ~/bin/updatePayload.sh
-  deployProject2026:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: cms.bawü.app
+    strategy:
+      matrix:
+        environment:
+          - cms.2martens.de
+          - cms.bawü.app
+    environment: ${{ matrix.environment }}
     steps:
       - name: Download payload build
         uses: actions/download-artifact@v3
