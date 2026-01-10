@@ -60,6 +60,9 @@ jobs:
         run: |
           ${{ steps.detect-package-manager.outputs.manager }} run build
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Print files
+        run: ls -la
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Upload payload files
         uses: actions/upload-artifact@v6
         with:
