@@ -61,7 +61,7 @@ jobs:
           ${{ steps.detect-package-manager.outputs.manager }} run build
         working-directory: ${{ env.BUILD_PATH }}
       - name: Upload payload files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: payload-build
           path: .next
@@ -76,7 +76,7 @@ jobs:
     environment: ${{ matrix.environment }}
     steps:
       - name: Download payload build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: payload-build
           path: .next
