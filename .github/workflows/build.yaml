@@ -68,6 +68,7 @@ jobs:
         with:
           name: payload-build
           path: ${{ env.BUILD_PATH }}/.next/
+          include-hidden-files: true
   deploy:
     needs: build
     runs-on: ubuntu-latest
