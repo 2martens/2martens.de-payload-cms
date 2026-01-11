@@ -70,6 +70,13 @@ jobs:
           path: ${{ env.BUILD_PATH }}/.next/
           include-hidden-files: true
           overwrite: 'true'
+      - name: Upload payload files
+        uses: actions/upload-artifact@v6
+        with:
+          name: payload-deps
+          path: ${{ env.BUILD_PATH }}/node_modules/
+          include-hidden-files: true
+          overwrite: 'true'
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -87,6 +94,11 @@ jobs:
         with:
           name: payload-build
           path: ${{ env.BUILD_PATH }}/.next/
+      - name: Download payload dependencies
+        uses: actions/download-artifact@v7
+        with:
+          name: payload-deps
+          path: ${{ env.BUILD_PATH }}/node_modules/
       - name: Create env file
         run: |
           touch .env
@@ -99,11 +111,11 @@ jobs:
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rvz -i --delete"
-          SOURCE: ".next package.json package-lock.json next.config.mjs .env"
+          SOURCE: ".next package.json package-lock.json next.config.mjs .env node_modules"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ~/payload-new/
-          EXCLUDE: "/dist/, /node_modules/"
+          EXCLUDE: "/dist/"
       - name: Update CMS on Uberspace
         uses: appleboy/ssh-action@v1.2.0
         with:
