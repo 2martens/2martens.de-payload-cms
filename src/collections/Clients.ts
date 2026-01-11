@@ -7,7 +7,7 @@ export const Clients: CollectionConfig = {
   },
   auth: {
     useAPIKey: true,
-    loginWithUsername: true
+    disableLocalStrategy: true,
   },
   fields: [
     // Email added by default
