@@ -70,12 +70,13 @@ jobs:
           path: ${{ env.BUILD_PATH }}/.next/
           include-hidden-files: true
           overwrite: 'true'
-      - name: Upload payload files
+      - name: 'Tar dependencies'
+        run: tar -cvf dependencies.tar ${{ env.BUILD_PATH }}/node_modules
+      - name: Upload payload dependencies
         uses: actions/upload-artifact@v6
         with:
           name: payload-deps
-          path: ${{ env.BUILD_PATH }}/node_modules/
-          include-hidden-files: true
+          path: dependencies.tar
           overwrite: 'true'
   deploy:
     needs: build
@@ -98,7 +99,9 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: payload-deps
-          path: ${{ env.BUILD_PATH }}/node_modules/
+          path: ${{ env.BUILD_PATH }}/dependencies.tar
+      - name: Extract dependencies
+        run: tar -xf dependencies.tar
       - name: Create env file
         run: |
           touch .env
