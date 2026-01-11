@@ -30,6 +30,9 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     dateFormat: 'yyyy-MM-dd',
+    timezones: {
+      defaultTimezone: "Europe/Berlin"
+    }
   },
   csrf: [
     process.env.SERVER_URL || 'http://localhost:3000',
