@@ -10,12 +10,7 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
-  auth: {
-    cookies: {
-      sameSite: 'Lax',
-      secure: !isDevelopment,
-    },
-  },
+  auth: true,
   fields: [
     // Email added by default
     // Add more fields as needed
