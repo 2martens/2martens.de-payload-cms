@@ -99,7 +99,7 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: payload-deps
-          path: ${{ env.BUILD_PATH }}/dependencies.tar
+          path: ${{ env.BUILD_PATH }}
       - name: Extract dependencies
         run: tar -xf dependencies.tar
       - name: Create env file
