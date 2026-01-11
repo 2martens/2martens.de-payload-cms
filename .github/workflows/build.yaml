@@ -80,6 +80,8 @@ jobs:
           - cms.bawü.app
     environment: ${{ matrix.environment }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Download payload build
         uses: actions/download-artifact@v7
         with:
